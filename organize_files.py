@@ -7,33 +7,54 @@ Tämä siistisi downloads-kansion ja helpottaisi tiedostojen löytämistä ja tu
 import os
 import shutil
 
-def organize_files(source_folder, destination_folder):
+def organize_files(downloads_folder):
     # Tarkista, että lähtö- ja kohdekansiot ovat olemassa
-    if not os.path.exists(source_folder) or not os.path.exists(destination_folder):
-        raise Exception("Source or destination folder does not exist")
-        return
+    if not os.path.exists(downloads_folder):
+        print("Source folder does not exist")
+    
+    file_types = {
+        "images": [".jpg", ".jpeg", ".png", ".gif", ".bmp"],
+        "videos": [".mp4", ".avi", ".mov", ".mkv"],
+        "documents": [".doc", ".docx", ".pdf", ".txt"],
+        "programs": [".exe", ".msi"],
+        "zip": [".zip", ".rar", ".tar", ".gz"]
+    }
     
     # Käy läpi kaikki tiedostot lähtökansiossa
-    for filename in os.listdir(source_folder):
-        file_path = os.path.join(source_folder, filename)
+    for filename in os.listdir(downloads_folder):
+        file_path = os.path.join(downloads_folder, filename)
 
         # Tarkista, että kyseessä on tiedosto
         if os.path.isfile(file_path):
             _, extension = os.path.splitext(filename)
+            extension = extension[1:].lower()   # poistaa pisteen tiedostopäätteestä ja muuttaa kirjaimet pieniksi
+
+            # Päätä mihin kansioon tiedosto kuuluu tiedostopäätteen perusteella
+            if extension in file_types["images"]:
+                folder_name = "images"
+            elif extension in file_types["videos"]:
+                folder_name = "videos"
+            elif extension in file_types["documents"]:
+                folder_name = "documents"
+            elif extension in file_types["programs"]:
+                folder_name = "programs"
+            elif extension in file_types["zip"]:
+                folder_name = "zip"
+            else:
+                folder_name = "other"
 
             # Luo kohdekansion, jos sitä ei ole olemassa
-            extension_folder = os.path.join(destination_folder, extension[1:].lower())
-            os.makedirs(extension_folder, exist_ok=True)
+            destination_folder = os.path.join(downloads_folder, folder_name)
+            os.makedirs(destination_folder, exist_ok=True)
 
             # Siirrä tiedosto kohdekansioon
-            destination_path = os.path.join(extension_folder, filename)
+            destination_path = os.path.join(destination_folder, filename)
             shutil.move(file_path, destination_path)
             print(f"Moved {filename} to {destination_path}")
 
 if __name__ == "__main__":
-    # Pyytää käyttäjältä lähtö- ja kohdekansiot
-    source_folder = input("Enter source folder: ")
-    destination_folder = input("Enter destination folder: ")
+    # Etsii Downloads-kansion
+    downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
 
     # Kutsuu funktiota ja järjestelee tiedostot
-    organize_files("source", "destination")
+    organize_files(downloads_folder)
