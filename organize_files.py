@@ -1,9 +1,10 @@
 """
-Karkea versio tiedostojen järjestelijästä. Tavoite on tehdä tästä scriptistä sellainen,
-että se järjestää tiedostot downloads-kansiosta eri alikansioihin tiedostotyypin mukaan,
+Tämän scriptin tavoite on järjestellä tiedostoja Downloads-kansiosta.
+Tarkoitus on järjestää tiedostot downloads-kansiosta eri alikansioihin tiedostotyypin mukaan,
 esim. kuvat, videot, dokumentit, ohjelmat, zip-tiedostot jne.
 Tämä siistisi downloads-kansion ja helpottaisi tiedostojen löytämistä ja turhien poistoa.
 """
+
 import os
 import shutil
 
@@ -17,7 +18,8 @@ def organize_files(downloads_folder):
         "videos": [".mp4", ".avi", ".mov", ".mkv"],
         "documents": [".doc", ".docx", ".pdf", ".txt"],
         "programs": [".exe", ".msi"],
-        "zip": [".zip", ".rar", ".tar", ".gz"]
+        "zip": [".zip", ".rar", ".tar", ".gz"],
+        "data": [".csv", ".xlsx", ".xls", ".json", ".xml"]
     }
     
     # Käy läpi kaikki tiedostot lähtökansiossa
@@ -26,8 +28,8 @@ def organize_files(downloads_folder):
 
         # Tarkista, että kyseessä on tiedosto
         if os.path.isfile(file_path):
-            _, extension = os.path.splitext(filename)
-            extension = extension[1:].lower()   # poistaa pisteen tiedostopäätteestä ja muuttaa kirjaimet pieniksi
+            _, file_extension = os.path.splitext(filename)
+            extension = file_extension.lower()   # muuttaa kirjaimet pieniksi varmuuden varalta
 
             # Päätä mihin kansioon tiedosto kuuluu tiedostopäätteen perusteella
             if extension in file_types["images"]:
@@ -40,6 +42,8 @@ def organize_files(downloads_folder):
                 folder_name = "programs"
             elif extension in file_types["zip"]:
                 folder_name = "zip"
+            elif extension in file_types["data"]:
+                folder_name = "data"
             else:
                 folder_name = "other"
 
