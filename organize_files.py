@@ -32,20 +32,11 @@ def organize_files(downloads_folder):
             extension = file_extension.lower()   # muuttaa kirjaimet pieniksi varmuuden varalta
 
             # Päätä mihin kansioon tiedosto kuuluu tiedostopäätteen perusteella
-            if extension in file_types["images"]:
-                folder_name = "images"
-            elif extension in file_types["videos"]:
-                folder_name = "videos"
-            elif extension in file_types["documents"]:
-                folder_name = "documents"
-            elif extension in file_types["programs"]:
-                folder_name = "programs"
-            elif extension in file_types["zip"]:
-                folder_name = "zip"
-            elif extension in file_types["data"]:
-                folder_name = "data"
-            else:
-                folder_name = "other"
+            folder_name = "other"
+            for file_type, extensions_list in file_types.items():
+                if extension in extensions_list:
+                    folder_name = file_type
+                    break
 
             # Luo kohdekansion, jos sitä ei ole olemassa
             destination_folder = os.path.join(downloads_folder, folder_name)
