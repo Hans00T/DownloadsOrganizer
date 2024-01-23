@@ -47,6 +47,8 @@ def organize_files(downloads_folder):
             shutil.move(file_path, destination_path)
             print(f"Moved {filename} to {destination_path}")
 
+            # TODO: Jos kohdekansiossa on jo samanniminen tiedosto, niin lisää tiedoston nimeen (1), (2) jne.
+
 if __name__ == "__main__":
     # Etsii Downloads-kansion
     downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
