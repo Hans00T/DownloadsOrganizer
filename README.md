@@ -9,5 +9,5 @@ The script will create a folder for each extension and move the files into the c
 ## Usage
 Open a terminal in the directory where the script is located and run the following command:
 ```bash
-python3 organize_files.py
+python organize_files.py
 ```
