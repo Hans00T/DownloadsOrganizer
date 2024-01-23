@@ -1,26 +1,13 @@
 """
-Tämän scriptin tavoite on järjestellä tiedostoja Downloads-kansiosta.
-Tarkoitus on järjestää tiedostot downloads-kansiosta eri alikansioihin tiedostotyypin mukaan,
-esim. kuvat, videot, dokumentit, ohjelmat, zip-tiedostot jne.
-Tämä siistisi downloads-kansion ja helpottaisi tiedostojen löytämistä ja turhien poistoa.
+Tiedostojen siirtoon käytetty logiikka
 """
-
 import os
 import shutil
 
-def organize_files(downloads_folder):
+def organize_files(downloads_folder, file_types):
     # Tarkista, että lähtö- ja kohdekansiot ovat olemassa
     if not os.path.exists(downloads_folder):
         print("Source folder does not exist")
-    
-    file_types = {
-        "images": [".jpg", ".jpeg", ".png", ".gif", ".bmp"],
-        "videos": [".mp4", ".avi", ".mov", ".mkv"],
-        "documents": [".doc", ".docx", ".pdf", ".txt"],
-        "programs": [".exe", ".msi"],
-        "zip": [".zip", ".rar", ".tar", ".gz"],
-        "data": [".csv", ".xlsx", ".xls", ".json", ".xml"]
-    }
     
     # Käy läpi kaikki tiedostot lähtökansiossa
     for filename in os.listdir(downloads_folder):
@@ -48,10 +35,3 @@ def organize_files(downloads_folder):
             print(f"Moved {filename} to {destination_path}")
 
             # TODO: Jos kohdekansiossa on jo samanniminen tiedosto, niin lisää tiedoston nimeen (1), (2) jne.
-
-if __name__ == "__main__":
-    # Etsii Downloads-kansion
-    downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
-
-    # Kutsuu funktiota ja järjestelee tiedostot
-    organize_files(downloads_folder)
