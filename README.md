@@ -2,8 +2,8 @@
 **NOTE: This version of the script is still in development and may not work as expected. Use at your own risk. If you find any bugs or have any suggestions, please let me know.**
 ## Description
 ### What is it?
-This script organizes the downloads folder by moving files into folders based on their extension.
-The script will create a folder for each extension and move the files into the corresponding folder. If a folder already exists for a certain extension, the files will be moved into that folder. The goal is to make it easier to find and manage files in the downloads folder. 
+This simple script organizes any folder by moving files into folders based on their extension.
+The script will create a folder for each extension and move the files into the corresponding folder. If a folder already exists for a certain extension, the files will be moved into that folder. The goal is to make it easier to find and manage files. 
 ### Why is it?
 This project was created for my own needs. Specifically to organize a messy downloads folder and to sharpen my programming skills while at it. Sorting files by extension helps finding files faster and makes it easier to delete files that are no longer needed and to move important files to another location.
 ### What does it do?
@@ -11,7 +11,34 @@ This project was created for my own needs. Specifically to organize a messy down
 - Creates a folder for each extension and moves the files into the corresponding folder
 ## Requirements
 - Python 3
+- Pip
 - Any operating system
+## Installation steps
+Clone the repository:
+```bash
+git clone https://github.com/Hans00T/DownloadsOrganizer.git
+```
+Navigate to the directory:
+```bash
+cd DownloadsOrganizer
+```
+Create a virtual environment:
+```bash
+python -m venv venv
+```
+Activate the virtual environment:
+Windows:
+```bash
+venv\Scripts\activate
+```
+Linux & MacOS:
+```bash
+source venv/bin/activate
+```
+Install the requirements:
+```bash
+pip install -r requirements.txt
+```
 ## Usage
 Open a terminal in the directory where the script is located and run the following command:
 ```bash
