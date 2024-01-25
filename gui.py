@@ -4,8 +4,7 @@ Käyttöliittymä tiedostojen järjestämiseen
 import os
 import json
 import tkinter as tk
-from tkinter import messagebox
-from tkinter import filedialog
+from tkinter import messagebox, filedialog
 from file_organizer_logic import organize_files
 
 
