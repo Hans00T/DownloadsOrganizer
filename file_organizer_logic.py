@@ -5,7 +5,7 @@ import os
 import shutil
 
 def organize_files(downloads_folder, file_types):
-    # Tarkista, että lähtö- ja kohdekansiot ovat olemassa
+    # Tarkista, että lähdekansio on olemassa
     if not os.path.exists(downloads_folder):
         print("Source folder does not exist")
     
@@ -29,9 +29,18 @@ def organize_files(downloads_folder, file_types):
             destination_folder = os.path.join(downloads_folder, folder_name)
             os.makedirs(destination_folder, exist_ok=True)
 
-            # Siirrä tiedosto kohdekansioon
-            destination_path = os.path.join(destination_folder, filename)
-            shutil.move(file_path, destination_path)
-            print(f"Moved {filename} to {destination_path}")
+            try:
+                # Siirrä tiedosto kohdekansioon
+                destination_path = os.path.join(destination_folder, filename)
+                shutil.move(file_path, destination_path)
+                print(f"Moved {filename} to {destination_path}")
+
+
+            except Exception as e:
+                error_message = f"Error organizing file {filename}: {str(e)}"
+                print(error_message)
+                return False, error_message
+
+            return True, None
 
             # TODO: Jos kohdekansiossa on jo samanniminen tiedosto, niin lisää tiedoston nimeen (1), (2) jne.
