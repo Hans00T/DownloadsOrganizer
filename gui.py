@@ -8,6 +8,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 from file_organizer_logic import organize_files
 
+
 # Lataa tiedostotyypit json-tiedostosta.
 with open('file_types.json') as f:
     FILE_TYPES = json.load(f)
@@ -15,14 +16,11 @@ with open('file_types.json') as f:
     #   TODO: Anna käyttäjän päättää mihin kansioon tiedosto kuuluu
     #   TODO: Anna käyttäjän määrittää kansioiden nimet ja sijainnit
 
-def organize_downloads():
-    downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
-    organize_files(downloads_folder, FILE_TYPES)
-    print("Downloads folder organized!")
 
 def select_folder(entry_var):
     folder_path = filedialog.askdirectory()
     entry_var.set(folder_path)
+
 
 def organize_button_clicked(entry_var, file_types):
     source_folder = entry_var.get()
@@ -33,8 +31,10 @@ def organize_button_clicked(entry_var, file_types):
     else:
         show_notification("Error", error_message)
 
+
 def show_notification(title, message):
     messagebox.showinfo(title, message)
+
 
 def create_gui():
     root = tk.Tk()
@@ -42,6 +42,7 @@ def create_gui():
 
     # Muuttujat
     source_var = tk.StringVar()
+    downloads_var = tk.StringVar(value=os.path.join(os.path.expanduser("~"), "Downloads"))
 
     # Widgetit
     source_label = tk.Label(root, text="Source Folder:")
@@ -53,7 +54,7 @@ def create_gui():
     organize_button = tk.Button(root, text="Organize Chosen Folder", command=lambda: organize_button_clicked(source_var, FILE_TYPES))
 
     # Vaihtoehtoinen nappi, joka järjestää tiedostot latauskansiosta, jolloin lähdekansiota ei tarvitse erikseen valita
-    downloads_button = tk.Button(root, text="Organize Downloads Only", command=organize_downloads)
+    downloads_button = tk.Button(root, text="Organize Downloads Only", command=lambda: organize_button_clicked(downloads_var, FILE_TYPES))
 
     # Grid layout
     or_label.grid(row=2, column=1, pady=20)
@@ -65,6 +66,7 @@ def create_gui():
 
     # Käynnistetään ikkuna
     root.mainloop()
+
 
 if __name__ == "__main__":
     create_gui()

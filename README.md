@@ -1,16 +1,17 @@
 # Downloads Organizer
-**NOTE: This version of the script is still in development and may not work as expected. The script WILL overwrite files with the same name in it's current state. Use at your own risk. If you find any bugs or have any suggestions, please let me know.**
+**NOTE: This version of the script is still in development and may not work as expected. Use at your own risk. If you find any bugs or have any suggestions, please let me know.**
 ## Description
 ### What is it?
 This script organizes the downloads folder by moving files into folders based on their extension.
-The script will create a folder for each extension and move the files into the corresponding folder. If a folder already exists for a certain extension, the files will be moved into that folder. The goal is to make it easier to find and manage files in the downloads folder. Sorting files by extension helps to find files faster and makes it easier to delete files that are no longer needed or move important files to another location.
+The script will create a folder for each extension and move the files into the corresponding folder. If a folder already exists for a certain extension, the files will be moved into that folder. The goal is to make it easier to find and manage files in the downloads folder. 
+### Why is it?
+This project was created for my own needs. Specifically to organize a messy downloads folder and to sharpen my programming skills while at it. Sorting files by extension helps finding files faster and makes it easier to delete files that are no longer needed and to move important files to another location.
 ### What does it do?
-- Organizes the downloads folder by moving files into folders based on their extension
+- Organizes the downloads folder (or any folder you choose) by moving files into folders based on their extension
 - Creates a folder for each extension and moves the files into the corresponding folder
 ## Requirements
 - Python 3
 - Any operating system
-- Downloads folder in the home directory
 ## Usage
 Open a terminal in the directory where the script is located and run the following command:
 ```bash
