@@ -1,5 +1,5 @@
 # Downloads Organizer
-**NOTE: This version of the script is still in development and may not work as expected. Use at your own risk. The script WILL overwrite files with the same name in it's current state. Use at your own risk. If you find any bugs or have any suggestions, please let me know.**
+**NOTE: This version of the script is still in development and may not work as expected. The script WILL overwrite files with the same name in it's current state. Use at your own risk. If you find any bugs or have any suggestions, please let me know.**
 ## Description
 ### What is it?
 This script organizes the downloads folder by moving files into folders based on their extension.
