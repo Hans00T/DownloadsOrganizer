@@ -41,7 +41,8 @@ def organize_files(downloads_folder, file_types):
             base_name, extension = os.path.splitext(filename)
             counter = 1
 
-            while os.path.exists(destination_path): # Jos kohdekansiossa on jo samanniminen tiedosto, niin lisää tiedoston nimeen (1), (2) jne.
+            # Jos kohdekansiossa on jo samanniminen tiedosto, niin lisää tiedoston nimeen (1), (2) jne.
+            while os.path.exists(destination_path): 
                 new_filename = f"{base_name}({counter}){extension}"
                 destination_path = os.path.join(destination_folder, new_filename)
                 counter += 1
