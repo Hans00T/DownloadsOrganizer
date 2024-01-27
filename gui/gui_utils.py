@@ -1,10 +1,13 @@
 """
 This file contains the functions that are used by the GUI.
 """
-
+import os, sys
 import tkinter as tk
 from tkinter import messagebox, filedialog
-from file_organizer_logic import organize_files
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from logic.file_organizer_logic import organize_files
 from utils.json_utils import load_from_json, save_to_json
 
 
@@ -64,29 +67,33 @@ def add_folder(folder_name_entry, extensions_entry, folder_name_dropdown, select
     new_folder = folder_name_entry.get()
     extensions = extensions_entry.get().split(",")
 
-    # Check if the file type already exists
-    if new_folder in file_types:
-        # If it exists, update the extensions
-        file_types[new_folder].extend(extensions)
+    # Makes sure that the folder name is not empty and doesn't already exist
+    if (new_folder in file_types) or (new_folder == ""):
+        show_notification("Error", "Folder name already exists or is empty.")
     else:
-        # If it doesn't exist, create a new entry
-        file_types[new_folder] = extensions
+        # Check if the file type already exists
+        if new_folder in file_types:
+            # If it exists, update the extensions
+            file_types[new_folder].extend(extensions)
+        else:
+            # If it doesn't exist, create a new entry
+            file_types[new_folder] = extensions
 
-    # Save file types to the JSON file
-    success = save_to_json(file_types)
+        # Save file types to the JSON file
+        success = save_to_json(file_types)
 
-    print(str(success))
+        print(str(success))
 
-    if success:
-        show_notification("Success", "Folder template added successfully!")
-        # Clear the entry fields
-        folder_name_entry.delete(0, tk.END)
-        extensions_entry.delete(0, tk.END)
+        if success:
+            show_notification("Success", "Folder template added successfully!")
+            # Clear the entry fields
+            folder_name_entry.delete(0, tk.END)
+            extensions_entry.delete(0, tk.END)
 
-        # Update the dropdown menu
-        update_dropdowns(folder_name_dropdown, selected_folder_var)
-    else:
-        show_notification("Error", "Failed to update the JSON file.")
+            # Update the dropdown menu
+            update_dropdowns(folder_name_dropdown, selected_folder_var)
+        else:
+            show_notification("Error", "Failed to update the JSON file.")
 
 
 # Deletes a folder type from the FILE_TYPES dictionary
@@ -124,25 +131,29 @@ def edit_folder(selected_folder_var, folder_name_entry, extensions_entry, folder
     file_types = load_from_json()
     folder_name = selected_folder_var.get()
 
-    # Checks if the file type exists in the dictionary
-    if folder_name in file_types:
-        # if it does, update the entry
-        updated_folder_name = folder_name_entry.get()
-        updated_extensions = extensions_entry.get().split(",")
+    # Checks that the folder name is not empty and doesn't already exist
+    if (folder_name_entry.get() == "") or (folder_name_entry.get() in file_types):
+        show_notification("Error", "Folder name already exists or is empty.")
+    else:
+        # Checks if the file type exists in the dictionary
+        if folder_name in file_types:
+            # if it does, update the entry
+            updated_folder_name = folder_name_entry.get()
+            updated_extensions = extensions_entry.get().split(",")
 
-        # Update the FILE_TYPES dictionary
-        file_types.pop(folder_name, None)  # Remove the old entry
-        file_types[updated_folder_name] = updated_extensions  # Add the updated entry
+            # Update the FILE_TYPES dictionary
+            file_types.pop(folder_name, None)  # Remove the old entry
+            file_types[updated_folder_name] = updated_extensions  # Add the updated entry
 
-        # Save file types to the JSON file
-        success = save_to_json(file_types)
+            # Save file types to the JSON file
+            success = save_to_json(file_types)
 
-        if success:
-            show_notification("Success", "Folder template updated successfully!")
-            # Update the dropdown menu for both "Delete Folder Templates" and "Edit Folder Templates"
-            update_dropdowns(folder_name_dropdown, selected_folder_var)
-        else:
-            show_notification("Error", "Failed to update the JSON file.")
+            if success:
+                show_notification("Success", "Folder template updated successfully!")
+                # Update the dropdown menu for both "Delete Folder Templates" and "Edit Folder Templates"
+                update_dropdowns(folder_name_dropdown, selected_folder_var)
+            else:
+                show_notification("Error", "Failed to update the JSON file.")
 
 
 def show_notification(title, message):
