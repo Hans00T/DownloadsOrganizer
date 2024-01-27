@@ -1,8 +1,5 @@
 """
-Tämän scriptin tavoite on järjestellä tiedostoja Downloads-kansiosta.
-Tarkoitus on järjestää tiedostot downloads-kansiosta eri alikansioihin tiedostotyypin mukaan,
-esim. kuvat, videot, dokumentit, ohjelmat, zip-tiedostot jne.
-Tämä siistisi downloads-kansion ja helpottaisi tiedostojen löytämistä ja turhien poistoa.
+This is the main file of the program. It is used to run the program.
 """
 
 from gui import create_gui
